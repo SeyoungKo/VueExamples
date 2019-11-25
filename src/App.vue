@@ -1,3 +1,6 @@
+
+<!--template : 렌더링 대상이 되는 템플릿 -->
+
 <template>
   <div id="app">
     <img src="./assets/logo.png">

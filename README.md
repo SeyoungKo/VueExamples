@@ -1,1 +1,1 @@
-vuejs_chat 에제
+vuejs_chat 제

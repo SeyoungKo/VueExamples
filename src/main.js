@@ -1,7 +1,9 @@
 
 import Vue from 'vue' // vue 컴포넌트 import
 import App from './App'  // 메인 컴포넌트 import
+
 import router from './router' // 라우팅 설정
+import store from './store' // 스토어 추가
 
 Vue.config.productionTip = false
 
@@ -18,6 +20,7 @@ Vue.config.productionTip = false
 new Vue({
   el: '#app',
   router,
+  store,
   components: { App },
   template: '<App/>'
 })

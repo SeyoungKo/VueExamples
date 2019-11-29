@@ -10,7 +10,7 @@ export default{
 
 // mounted : 인스턴스 생성완료, 요소 마운트된 지점
    mounted(){
-       this.GET_CHANNELS()
+       this.GET_CHANNELS() // state.channels를 업데이트하는 지점
    },
 // computed : 메서드 정의 (업데이트 된 값만 재계산된다.)
    computed: {

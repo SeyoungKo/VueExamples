@@ -8,7 +8,8 @@ Vue.use(Vuex)  // vue 사용할 수 있게함
 
 // 상태관리할 데이터
 const state={
-    message : []
+    message : [],
+    channels: [] 
 }
 
 // 인스턴스 생성 

@@ -1,23 +1,28 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
-    <router-view/>
+   <app-header/>   <!-- 하위 vue 파일에서 생성한 div 엘리먼트 -->
+   <memo-app/>
   </div>
 </template>
 
 <script>
+import AppHeader from './components/AppHeader'
+import MemoApp from './components/MemoApp'
 export default {
-  name: 'App'
+  name: 'app',
+  components: {
+    AppHeader,
+    MemoApp
+  }
 }
 </script>
 
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+  @import "./styles/reset.css";
+
+  #app{
+    margin : 0 auto;
+    width : 560px;
+  }
+
 </style>

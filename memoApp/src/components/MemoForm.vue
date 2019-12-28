@@ -1,12 +1,12 @@
 <template>
     <div class = "memo-form">
-      <form>
+      <form @submit.prevent="addMemo">
         <fieldset>
             <div>
-                <input class = "memo-form__title-form" 
+                <input class = "memo-form__title-form" v-model="title"
                 type="text" placeholder="메모 제목을 입력하세요."/>
 
-                <textarea class = "memo-form__content-form"
+                <textarea class = "memo-form__content-form" v-model="content"
                 placeholder="메모 내용을 입력하세요."/>
 
                 <button type="reset"><i class="fas fa-sync-alt"></i></button>
@@ -19,12 +19,40 @@
 
 <script>
 export default {
-    name: 'MemoForm'
-  
+    name: 'MemoForm',
+    data(){
+        return{
+           title : '',
+           content : ''
+        }
+    },
+    methods:{
+
+        resetField(){
+          this.title= '';
+          this.content='';
+        },
+
+        addMemo(){
+            const {title, content} = this;
+            const id = new Date().getTime();
+
+            if(title.length <=0){
+                alert('메모 제목을 입력하세요.');
+                return;
+            }else if(content.length<=0){
+                alert('메모 내용을 입력하세요');
+                return;
+            }
+
+            this.$emit('addMemo', {id,title, content});
+            this.resetField();
+        }
+    }
 }
 </script>
 
-<style scoped> 
+<style scoped>
     .memo-form{
         margin-bottom:24px;
         padding-bottom:40px;

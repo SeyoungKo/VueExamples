@@ -2,7 +2,16 @@
 <!--MemoApp 컴포넌트의 ul 내부에 들어가는 props 데이터 -->
         <li class = "memo-item">
                 <strong>{{memo.title}}</strong>
-                <p>{{memo.content}}</p>
+
+                <!--더블클릭시 수정할 수 있도록 이벤트 추가  -->
+               <template>
+                 <p @dblclick="handleDblclick">
+                   <template v-if="!isEditing">{{memo.content}}</template>
+                   <!-- 더블클릭했을 때만 수정할 수 있도록 Input 활성화 -->
+                   <input v-else type="text" ref="content" :value="memo.content"/>
+                 </p>
+               </template>
+
                 <button type="button" @click="deleteMemo">
                         <i class="fas fa-times"></i>
                 </button>
@@ -12,6 +21,11 @@
 <script>
 export default {
     name : 'Memo',
+    data(){
+     return{
+      isEditing: false
+     }
+    },
     props:{
         memo:{
           type:Object
@@ -23,7 +37,10 @@ export default {
            // 파라미터로 전달해준다.
         const id = this.memo.id;
         this.$emit('deleteMemo', id);
-       }
+       },
+       handleDblclick(){
+        this.isEditing = true;
+       },
     }
 }
 </script>
@@ -61,5 +78,10 @@ export default {
     line-height: 22px;
     color: #666;
  }
-
+.memo-item p input [type="text"]{
+    box-sizing: border-box;
+    width:100%;
+    font-size: inherit;
+    border : 1px solid #999;
+}
 </style>

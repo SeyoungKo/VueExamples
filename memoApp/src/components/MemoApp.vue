@@ -1,3 +1,5 @@
+//** MemoForm과 Memo 컴포넌트 이벤트를 연결해주는 상위 컴포넌트
+
 <template>
     <div class = "memo-app">
       <!-- 하위 컴포넌트에서 데이터를 받는 함수 이벤트를 연결한다. -->
@@ -6,7 +8,8 @@
        <ul class="memo-list">
          <memo v-for="memo in memos"
             :key="memo.id"
-            :memo="memo" @deleteMemo="deleteMemo"/>
+            :memo="memo" @deleteMemo="deleteMemo"
+                         @updateMemo="updateMemo"/>
        </ul>
     </div>
 </template>
@@ -24,8 +27,8 @@ export default {
 
   methods:{
 
+    // 하위 컴포넌트에서 받은 데이터를 먼저 내부 데이터에 추가한다.
     addMemo(payload){
-      // 하위 컴포넌트에서 받은 데이터를 먼저 내부 데이터에 추가한다.
       this.memos.push(payload);
       this.storeMemo();
     },
@@ -37,13 +40,22 @@ export default {
       localStorage.setItem('memos', memosToString); // .setItem(key, value)
 
     },
+
     deleteMemo(id){
       // 파라미터 id에 해당하는 localStorage 메모 데이터 인덱스 찾기
       const targetIndex = this.memos.findIndex(v=> v.id ===id);
       // 데이터 삭제
-      this.memos.splice(targetIndex,1);
+      this.memos.splice(targetIndex,1); // targetIndex부터 하나의 데이터 삭제
       // 다시 localStorage에 저장
       this.storeMemo();
+    },
+
+    updateMemo(payload){
+      // payload의 id에 해당하는 수정된 메모를 찾아 저장한다.
+      const {id, content} = payload;
+      const targetIndex = this.memos.findIndex(v=>v.id===id);
+      const targetMemo = this.memos[targetIndex];
+      this.memos.splice(targetIndex, 1, {...targetMemo, content})
     }
   },
   components:{

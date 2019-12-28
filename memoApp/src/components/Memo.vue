@@ -1,10 +1,11 @@
-
 <template>
 <!--MemoApp 컴포넌트의 ul 내부에 들어가는 props 데이터 -->
         <li class = "memo-item">
                 <strong>{{memo.title}}</strong>
                 <p>{{memo.content}}</p>
-                <button type="button"><i class="fas fa-times"></i></button>
+                <button type="button" @click="deleteMemo">
+                        <i class="fas fa-times"></i>
+                </button>
         </li>
 </template>
 
@@ -16,6 +17,14 @@ export default {
           type:Object
         }
     },
+    methods:{
+       deleteMemo(){
+           // 부모 컴포넌트(MemoApp)로부터 받은 props 데이터 중 id를 deleteMemo() 함수의
+           // 파라미터로 전달해준다.
+        const id = this.memo.id;
+        this.$emit('deleteMemo', id);
+       }
+    }
 }
 </script>
 

@@ -9,7 +9,7 @@
                 <textarea class = "memo-form__content-form" v-model="content"
                 placeholder="메모 내용을 입력하세요."/>
 
-                <button type="reset"><i class="fas fa-sync-alt"></i></button>
+               <button type="reset"><i class="fas fa-sync-alt"></i></button>
             </div>
             <button type="submit">등록하기</button>
         </fieldset>
@@ -24,10 +24,9 @@ export default {
         return{
            title : '',
            content : ''
-        }
+        };
     },
     methods:{
-
         resetField(){
           this.title= '';
           this.content='';
@@ -47,7 +46,7 @@ export default {
 
             this.$emit('addMemo', {id,title, content});
             this.resetField();
-        }
+        },
     }
 }
 </script>

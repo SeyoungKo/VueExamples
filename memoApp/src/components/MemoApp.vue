@@ -1,28 +1,32 @@
 <template>
     <div class = "memo-app">
       <!-- 하위 컴포넌트에서 데이터를 받는 함수 이벤트를 연결한다. -->
-    <memo-form v-on:addMemo="addMemo"/>
-    <memo/>
+    <memo-form @addMemo="addMemo"/>
+       <!-- ul 태그 내부에 로컬스토리지에서 불러오는 데이터를 넣는다 -->
+       <ul class="memo-list">
+         <memo v-for="memo in memos"
+            :key="memo.id"
+            :memo="memo"/>
+       </ul>
     </div>
 </template>
 
 <script>
-// eslint-disable-next-line no-unused-vars
-import MemoForm from './MemoForm'
-// eslint-disable-next-line no-unused-vars
-import Memo from './Memo'
+
+import MemoForm from './MemoForm';
+import Memo from './Memo';
 export default {
 
   name:'MemoApp',
+  created(){
+    this.memos = localStorage.memos ? JSON.parse(localStorage.memos) : [];
+  },
+
   components:{
     MemoForm,
     Memo
   },
-  data(){
-    return {
-      memos:[],
-    }
-  },
+
   methods:{
     addMemo(payload){
       // 하위 컴포넌트에서 받은 데이터를 먼저 내부 데이터에 추가한다.
@@ -35,13 +39,13 @@ export default {
       localStorage.setItem('memos', memosToString); // .setItem(key, value)
 
     }
-  },
-  created(){
-  this.memos = localStoreage.memos ? JSON.parse(localStorage.memos) : []
-  },
-}
+  }
+};
 </script>
 
 <style scoped>
-
+  .memo-list{
+    padding: 20px 0;
+    margin : 0;
+  }
 </style>

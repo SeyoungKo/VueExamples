@@ -8,7 +8,8 @@
                  <p @dblclick="handleDblclick">
                    <template v-if="!isEditing">{{memo.content}}</template>
                    <!-- 더블클릭했을 때만 수정할 수 있도록 Input 활성화 -->
-                   <input v-else type="text" ref="content" :value="memo.content"/>
+                   <!-- enter시 updateMemo 호출 -->
+                   <input v-else type="text" ref="content" :value="memo.content" @keydown.enter="updateMemo"/>
                  </p>
                </template>
 
@@ -38,11 +39,25 @@ export default {
         const id = this.memo.id;
         this.$emit('deleteMemo', id);
        },
+
        handleDblclick(){
         this.isEditing = true;
+        this.$nextTick(()=>{
+           this.$refs.content.focus();
+        });
        },
+
+       updateMemo(e){  // 키보드 enter 이벤트 발생시
+         const id = this.memo.id;
+         const content = e.target.value.trim();
+         if(content.length <=0){
+            return false;
+         }
+         this.$emit('updateMemo', {id, content}); //id와 content를 함수 파라미터로 전달한다.
+         this.isEditing = false; // 더블 클릭 수정 이벤트 초기화
+       }
     }
-}
+};
 </script>
 
 <style scoped>

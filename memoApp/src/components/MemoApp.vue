@@ -16,38 +16,48 @@
 
 <script>
 
+import axios from 'axios';
+
 import MemoForm from './MemoForm';
 import Memo from './Memo';
 export default {
 
   name:'MemoApp',
   created(){
-    this.memos = localStorage.memos ? JSON.parse(localStorage.memos) : [];
-  },
+    // axios url 객체를 생성한다.
+    const memoAPICore = axios.create({
+      baseURL : 'http://localhost:8080/api/memos'
+     });
+
+    memoAPICore.get('/').then(res=>{
+      this.memos = res.data;
+    })
+},
 
   methods:{
 
-    // 하위 컴포넌트에서 받은 데이터를 먼저 내부 데이터에 추가한다.
-    addMemo(payload){
-      this.memos.push(payload);
-      this.storeMemo();
+    data(){
+      return{
+        memos: []
+      };
     },
-    // 배열에 추가된 하위 컴포넌트 데이터를 문자열로 바꾼다.
-    storeMemo(){
-      const memosToString = JSON.stringify(this.memos);
-
-      // localStorage에 저장
-      localStorage.setItem('memos', memosToString); // .setItem(key, value)
-
+    // 하위 컴포넌트에서 전달받은 title, content 데이터를 API 호출 서버에 전달한다.
+    addMemo(payload){
+      memoAPICore.post('/',payload).then(res=>{
+        // 결과 데이터를 memos에 추가한다.
+        this.memos.push(res.data);
+      });
     },
 
     deleteMemo(id){
-      // 파라미터 id에 해당하는 localStorage 메모 데이터 인덱스 찾기
+      // 파라미터 id에 해당하는 메모 데이터 인덱스 찾기
       const targetIndex = this.memos.findIndex(v=> v.id ===id);
-      // 데이터 삭제
-      this.memos.splice(targetIndex,1); // targetIndex부터 하나의 데이터 삭제
-      // 다시 localStorage에 저장
-      this.storeMemo();
+
+      // id로 서버에 데이터 삭제를 요청한다.
+       memoAPICore.delete('/${id}').then(()=>{
+         // 요청 후 memoApp 컴포넌트 memos 데이터에서도 삭제한다.
+        this.memos.splice(targetIndex,1); // targetIndex부터 하나의 데이터 삭제
+      })
     },
 
     updateMemo(payload){
@@ -55,7 +65,12 @@ export default {
       const {id, content} = payload;
       const targetIndex = this.memos.findIndex(v=>v.id===id);
       const targetMemo = this.memos[targetIndex];
+
+      // 수정대상 id와 일치하는 수정된 데이터를 요청한다.
+      memoAPICore.put('/${id}',{content}).thne(()=>{
+      // 요청후 memos 데이터에 해당하는 데이터를 업데이트한다.
       this.memos.splice(targetIndex, 1, {...targetMemo, content})
+      });
     }
   },
   components:{

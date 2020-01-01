@@ -34,7 +34,6 @@ export default {
 
         addMemo(){
             const {title, content} = this;
-            const id = new Date().getTime();
 
             if(title.length <=0){
                 alert('메모 제목을 입력하세요.');
@@ -44,7 +43,7 @@ export default {
                 return;
             }
 
-            this.$emit('addMemo', {id,title, content});
+            this.$emit('addMemo', {title, content});
             this.resetField();
         },
     }

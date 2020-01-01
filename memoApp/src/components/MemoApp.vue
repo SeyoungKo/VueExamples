@@ -20,29 +20,30 @@ import axios from 'axios';
 
 import MemoForm from './MemoForm';
 import Memo from './Memo';
+
+  // axios url 객체를 생성한다.
+  const memoAPICore = axios.create({
+      baseURL : 'http://localhost:8000/api/memos'
+  });
+
 export default {
 
   name:'MemoApp',
   created(){
-    // axios url 객체를 생성한다.
-    const memoAPICore = axios.create({
-      baseURL : 'http://localhost:8080/api/memos'
-     });
 
     memoAPICore.get('/').then(res=>{
       this.memos = res.data;
-    })
+    });
 },
-
-  methods:{
-
-    data(){
-      return{
+  data(){
+    return{
         memos: []
-      };
-    },
+    };
+  },
+  methods:{
     // 하위 컴포넌트에서 전달받은 title, content 데이터를 API 호출 서버에 전달한다.
     addMemo(payload){
+
       memoAPICore.post('/',payload).then(res=>{
         // 결과 데이터를 memos에 추가한다.
         this.memos.push(res.data);
@@ -57,7 +58,7 @@ export default {
        memoAPICore.delete('/${id}').then(()=>{
          // 요청 후 memoApp 컴포넌트 memos 데이터에서도 삭제한다.
         this.memos.splice(targetIndex,1); // targetIndex부터 하나의 데이터 삭제
-      })
+      });
     },
 
     updateMemo(payload){
@@ -67,9 +68,9 @@ export default {
       const targetMemo = this.memos[targetIndex];
 
       // 수정대상 id와 일치하는 수정된 데이터를 요청한다.
-      memoAPICore.put('/${id}',{content}).thne(()=>{
+      memoAPICore.put('/${id}',{content}).then(()=>{
       // 요청후 memos 데이터에 해당하는 데이터를 업데이트한다.
-      this.memos.splice(targetIndex, 1, {...targetMemo, content})
+      this.memos.splice(targetIndex, 1, {...targetMemo, content});
       });
     }
   },

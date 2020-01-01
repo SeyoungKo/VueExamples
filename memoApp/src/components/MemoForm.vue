@@ -32,22 +32,18 @@ export default {
           this.content='';
         },
 
-        addMemo(){
-            const {title, content} = this;
-
-            if(title.length <=0){
-                alert('메모 제목을 입력하세요.');
-                return;
-            }else if(content.length<=0){
-                alert('메모 내용을 입력하세요');
-                return;
-            }
-
-            this.$emit('addMemo', {title, content});
-            this.resetField();
-        },
+        addMemo () {
+      const { title, content } = this;
+      const isEmpty = title.length <= 0 || content.length <= 0;
+      if (isEmpty) {
+        return false;
+      }
+      this.$emit('addMemo', { title, content });
+      // 부모 컴포넌트에 데이터를 전파한 후 데이터를 다시 원상태로 초기화한다.
+      this.resetField();
     }
-}
+  }
+};
 </script>
 
 <style scoped>

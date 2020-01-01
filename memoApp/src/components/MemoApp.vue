@@ -55,7 +55,7 @@ export default {
       const targetIndex = this.memos.findIndex(v=> v.id ===id);
 
       // id로 서버에 데이터 삭제를 요청한다.
-       memoAPICore.delete('/${id}').then(()=>{
+       memoAPICore.delete(`/${id}`).then(()=>{
          // 요청 후 memoApp 컴포넌트 memos 데이터에서도 삭제한다.
         this.memos.splice(targetIndex,1); // targetIndex부터 하나의 데이터 삭제
       });
@@ -68,7 +68,7 @@ export default {
       const targetMemo = this.memos[targetIndex];
 
       // 수정대상 id와 일치하는 수정된 데이터를 요청한다.
-      memoAPICore.put('/${id}',{content}).then(()=>{
+      memoAPICore.put(`/${id}`,{content}).then(()=>{
       // 요청후 memos 데이터에 해당하는 데이터를 업데이트한다.
       this.memos.splice(targetIndex, 1, {...targetMemo, content});
       });

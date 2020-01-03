@@ -13,6 +13,7 @@
 import PostList from '@/components/PostList'
 import api from '@/api'
 import {mapActions} from 'vuex' // mapActions 헬퍼 함수 (actions)
+import {mapState} from 'vuex'   // store의 state를 참조하는 헬퍼함수
 
 export default{
     name : 'PostListPage',
@@ -23,11 +24,9 @@ export default{
     components: {
         PostList
     },
-    data(){
-        // 하위 컴포넌트의 데이터를 posts 배열으로 컴포넌트에 담는다.
-        return{
-            posts : []
-        }
+    computed:{
+        // mapState 헬퍼 함수를 이용해 posts 상태를 컴포넌트에 매핑한다.
+        ...mapState(['posts'])
     },
     methods:{
         // mapActions 헬퍼 함수를 fetchPostList 함수에 매핑한다.

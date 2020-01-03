@@ -12,14 +12,13 @@
 <script>
 import PostList from '@/components/PostList'
 import api from '@/api'
+import {mapActions} from 'vuex' // mapActions 헬퍼 함수 (actions)
 
 export default{
     name : 'PostListPage',
     created(){
-        // api 서버에서 데이터를 받는다. (초기 데이터 세팅)
-        api.get('/posts').then(res=>{
-            this.posts = res.data;
-        });
+     // api 서버에서 데이터를 받는 actions를 호출한다.
+       this.fetchPostList()
     },
     components: {
         PostList
@@ -29,6 +28,10 @@ export default{
         return{
             posts : []
         }
+    },
+    methods:{
+        // mapActions 헬퍼 함수를 fetchPostList 함수에 매핑한다.
+        ...mapActions(['fetchPostList'])
     }
 
 }

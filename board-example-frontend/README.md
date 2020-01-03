@@ -1,4 +1,4 @@
-# board-example
+# board-example 🗒
 
 > A Vue.js project
 

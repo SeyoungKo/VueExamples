@@ -25,10 +25,11 @@
                   <td scope="col">{{post.id}}</td>
 
                   <td scope="col">
-                      <!-- -----------임시----------- -->
-                      <!-- PostListPage로 리다이렉트 -->
-                      <router-link :to="{name:'PostListPage'}">{{post.title}}</router-link>
-                       <!-- --------------------- -->
+
+                      <!-- Params옵션에 해당하는 고유한 번호를 PostId 파라미터로 추가해 PostViewPage로 라우팅 ( /post/:postId ) -->
+                      <router-link :to="{name:'PostViewPage', params:{postId: post.id.toString()}}">
+                          {{post.title}}
+                      </router-link>
                       [{{post.comments.length}}]
                    </td>
 

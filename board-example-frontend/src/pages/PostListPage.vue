@@ -9,6 +9,7 @@
   </div>
 </template>
 
+
 <script>
 import PostList from '@/components/PostList'
 import api from '@/api'

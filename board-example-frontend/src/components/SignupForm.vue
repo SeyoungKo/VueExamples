@@ -1,6 +1,6 @@
 // 회원가입 페이지에 삽입되는 정보 입력 컴포넌트
 <template>
-    <div class="signup-form">
+    <div class="sign-up-form">
         <!-- novalidate : HTML5에서 자체적인 유효성 검사를 하지 않도록 설정. 수동적으로 설정한다. -->
         <form @submit.prevent="submit" novalidate>
            <fieldset>

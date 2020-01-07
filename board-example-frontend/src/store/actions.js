@@ -4,7 +4,10 @@
 import api from '@/api'
 import {FETCH_POST_LIST} from './mutations-types'
 import {FETCH_POST} from './mutations-types'
+import {SET_ACCESS_TOKEN} from './mutations-types'
+import {SET_MY_INFO} from './mutations-types'
 
+// 비동기에 대한 처리를 정의한다.
 export default{
     // 서버로부터 게시물 목록 데이터를 받아오는 함수
     fetchPostList({commit}){
@@ -17,6 +20,22 @@ export default{
     fetchPost({commit}, postId){
         return api.get(`/posts/${postId}`).then(res=>{
             commit(FETCH_POST,res.data)
+        })
+    },
+    // 서버에 요청하고 응답으로 토큰을 받아 SET_ACCESS_TOKEN을 커밋
+    signin({commit},payload){
+        const {email,password} =payload
+        return api.post('/auth/signin',{email,password}).then(res=>{
+            const {accessToken} = res.data
+            commit(SET_ACCESS_TOKEN, accessToken)
+
+            // [SET_MY_INFO] 변이(accessToken에 해당하는 사용자 정보 가져오기)에 대한 작업
+            return api.get('/users/me').then(res=>{
+                // accessToken을 스토어에 저장하면 header에 토큰이 저장되므로 바로 사용자 정보를 불러올 수 있다.
+                // SET_MY_INFO 변이에 사용자 정보를 저장한다.
+                commit(SET_MY_INFO, res.data)
+
+            })
         })
     }
 }

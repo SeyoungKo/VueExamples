@@ -37,5 +37,15 @@ export default{
 
             })
         })
+    },
+    // 이미 저장된 토큰 정보가 있을 때 자동으로 토큰을 이용해 로그인 처리(사용자 정보 가져오는)하는 함수
+    signinByToken ({commit}, token){
+        // 토큰을 스토어에 커밋한다.
+        commit(SET_ACCESS_TOKEN,token)
+        // 사용자의 정보를 받아오고 스토어에 커밋한다.
+        return api.get('/user/me').then(res=>{
+            //SET_MY_INFO 변이에 사용자 정보를 저장한다.
+            commit(SET_MY_INFO,res.data)
+        })
     }
 }

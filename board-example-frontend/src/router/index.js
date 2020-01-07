@@ -6,6 +6,9 @@ import PostViewPage from '../pages/PostViewPage'
 import Signup from '../pages/Signup'
 import Signin from '../pages/Signin'
 
+// 헤더
+import AppHeader from '../components/AppHeader'
+
 Vue.use(Router)
 // 페이지를 이동할 때마다 routes에 컴포넌트를 등록해 준다.
 
@@ -20,18 +23,25 @@ export default new Router({
     {
       path:'/post/:postId',
       name:'PostViewPage',
-      component:PostViewPage,
+      components:{
+        header : AppHeader, //헤더에 AppHeader 컴포넌트를 적용
+        default :PostViewPage, // 바디에 PostViewPage 컴포넌트를 적용
+      },
       props: true
     },
     {
       path:'/signup',
       name:'Signup',
-      component:Signup
+      components:{
+        header : AppHeader,
+        default: Signup
+      },
     },
     {
       path:'/signin',
       name:'Signin',
-      component:Signin
-    },
+      component:
+         Signin
+      }
   ]
 })

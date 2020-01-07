@@ -1,6 +1,8 @@
 <template>
   <div id="app">
      <AppHeader/>
+     <!-- name="header"인 헤더 (헤더 이름을 다르게 해 여러개 설정할 수 있다.) -->
+    <router-view name="header"/>
     <router-view/>
   </div>
 </template>

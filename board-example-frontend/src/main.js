@@ -13,7 +13,7 @@ Vue.config.productionTip = false
 const savedToken = Cookies.get('accessToken')
 // 쿠키에 저장된 토큰이 있으면 사용자의 정보를 받아온다.
   if(savedToken){
-    store.dispatch('signinByToken',savedToken)
+     store.dispatch('signinByToken',savedToken)
   }
 
 new Vue({
@@ -21,5 +21,5 @@ new Vue({
   router,
   store,
   components: { App },
-  template: '<App/>',
+  template: '<App/>'
 })

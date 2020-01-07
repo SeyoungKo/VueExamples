@@ -27,7 +27,9 @@ export default new Router({
         header : AppHeader, //헤더에 AppHeader 컴포넌트를 적용
         default :PostViewPage, // 바디에 PostViewPage 컴포넌트를 적용
       },
-      props: true
+      props: {
+        default:true
+      }
     },
     {
       path:'/signup',
@@ -35,7 +37,7 @@ export default new Router({
       components:{
         header : AppHeader,
         default: Signup
-      },
+      }
     },
     {
       path:'/signin',

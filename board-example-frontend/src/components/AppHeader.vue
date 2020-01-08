@@ -14,7 +14,7 @@
           </strong>
           <!-- isActive가 true일 때만 보이는 박스 UI -->
           <ul v-if="isActive">
-              <li><button>로그아웃</button></li>
+              <li><button @click="onClickSignOut">로그아웃</button></li>
           </ul>
         </div>
         <!-- isAuthorized getter 함수에서 false가 반환되면  -->
@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import { mapState, mapGetters } from 'vuex'
+import { mapState, mapGetters, mapActions } from 'vuex'
 
 export default {
     name : 'AppHeader',
@@ -35,15 +35,24 @@ export default {
             isActive:false
         }
     },
+    computed:{
+        ...mapState(['me']), // 사용자 정보 상태를 불러온다.
+        ...mapGetters(['isAuthorized']) // 사용자 인증 상태를 확인하는 게터를 불러온다.
+    },
     methods:{
         toggle(){
             //toggle 메소드가 호출되면 isActive값이 반전된다.
             this.isActive = !this.isActive
-        }
+        },
+        onClickSignOut(){
+            this.signout()  // sitnout() 액션을 실행한다.
+            this.isActive= false
+            alert('로그아웃 되었습니다.')
+            // signout()액션으로 스토어에 저장된 토큰, 사용자 정보를 제거하고나서 router를 발생시킨다.
+            this.$router.push({name:'PostListPage'})  // 클릭 이벤트 발생시 페이지를 이동시킨다.
+        },
+        ...mapActions(['signout']) // signout()액션 헬퍼
     },
-    computed:{
-        ...mapGetters(['isAuthorized']), // 사용자 인증 상태를 확인하는 게터를 불러온다.
-        ...mapState(['me']) // 사용자 정보 상태를 불러온다.
-    }
+
 }
 </script>

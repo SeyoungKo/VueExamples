@@ -7,6 +7,8 @@ import Signup from '../pages/Signup'
 import Signin from '../pages/Signin'
 import PostCreatePage from '../pages/PostCreatePage'
 
+// 스토어 모듈 추가
+import store from '@/store'
 // 헤더
 import AppHeader from '../components/AppHeader'
 
@@ -41,6 +43,16 @@ export default new Router({
         components:{
           header : AppHeader,
           default: PostCreatePage
+        },
+        // beforeEnter 가드 훅 추가
+        beforeEnter(to, from, next){
+          const {isAuthorized}= store.getters
+          if(!isAuthorized){ // Authorized =false일때
+            alert('로그인이 필요합니다.')
+            // 로그인이 되어있지 않으면 Signin 페이지로 이동한다.
+            next({name:'Signin'})
+          }
+          next()
         }
       },
       {

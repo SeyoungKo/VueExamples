@@ -41,7 +41,7 @@ export default{
     // 로그아웃 (토큰 삭제)
     [DESTROY_ACCESS_TOKEN](state){
       state.accessToken=''  // 스토어에 저장된 accessToken 제거
-      delete api.defaults.headers.common['Authorization']; // api header(Authorization)에 저장된 토큰 제거
+      delete api.defaults.headers.common['Authorization'] // api header(Authorization)에 저장된 토큰 제거
       Cookies.remove('accessToken') // 쿠키에서 삭제
     },
     // 스토어에 저장된 토큰에 대한 사용자 정보 null로 변경

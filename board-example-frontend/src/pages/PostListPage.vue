@@ -18,7 +18,7 @@ import {mapState} from 'vuex'   // store의 state를 참조하는 헬퍼함수
 
 export default{
     name : 'PostListPage',
-    created(){
+    created(){ 
      // api 서버에서 데이터를 받는 actions를 호출한다.
        this.fetchPostList()
     },

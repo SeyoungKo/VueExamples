@@ -52,7 +52,7 @@ export default{
     },
     // 로그아웃을 하기 위해 스토어에 저장된 토큰, 사용자 정보 제거
     signout ({commit}){
-        commit(DESTROY_ACCESS_TOKEN)
         commit(DESTROY_MY_INFO)
+        commit(DESTROY_ACCESS_TOKEN)
     }
 }

@@ -6,6 +6,7 @@ import PostViewPage from '../pages/PostViewPage'
 import Signup from '../pages/Signup'
 import Signin from '../pages/Signin'
 import PostCreatePage from '../pages/PostCreatePage'
+import PostEditPage from '../pages/PostEditPage'
 
 // 스토어 모듈 추가
 import store from '@/store'
@@ -64,6 +65,43 @@ export default new Router({
         },
         props: {
           default:true
+        }
+      },
+      {
+        path :'/post/:postId/edit',
+        name:'PostEditPage',
+        components:{
+          header : AppHeader,
+          default:PostEditPage
+        },
+        props:{
+          default:true
+        },
+        // 작성자만 수정할 수 있도록 heforeEnter 가드 훅 방어코드 작성
+        beforeEnter(to, from ,next){
+          // 비로그인 사용자는 접근 불가
+          const {isAuthorized} = store.getters
+          if(!isAuthorized){
+            alert('로그인이 필요합니다.')
+            next({name: 'Signin'})
+            return false
+          }
+          // fetchPost 액션(postId에 대한 게시물 조회) 재사용하기
+          store.dispatch('fetchPost', to.params.postId).then(res=>{
+            const post = store.state.post
+            const isAuthor = post.user.id === store.state.me.id // 게시물 작성자와 현재 로그인 사용자아이디가 일치하는지 확인
+            if(isAuthor){
+              // 일치하면 다음 라우트 진행
+              next()  // 게시물 데이터 요청 성공시 postId에 대한 게시물을 받아 스토어에 저장할 것임.
+            }else {
+              alert('게시물 작성자만 게시물을 수정할 수 있습니다.')
+              next(from) //이전 라우트로 이동
+            }
+          }).catch(err=>{
+            // 게시물 데이터 요청에 실패하면 전 페이지로 돌아간다.
+            alert(err.response.data.msg)  // ex ) /post/300 '포스트가 존재하지 않습니다.'
+            next(from)
+          })
         }
       }
   ]

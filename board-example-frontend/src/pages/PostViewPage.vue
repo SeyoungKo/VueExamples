@@ -8,6 +8,7 @@
      </div>
         <p>해당 영역에는 게시글의 콘텐츠 내용이 노출된다.</p>
      </div>
+        <router-link :to="{name: 'PostEditPage', params:{postId}}">수정</router-link>
         <!-- 컴포넌트에 라우터를 연결한다. path에 동적인 변수(postId)가 포함된다 -->
         <router-link :to="{name: 'PostListPage'}">목록</router-link>
      </div>

@@ -5,6 +5,7 @@ import PostListPage from '../pages/PostListPage'
 import PostViewPage from '../pages/PostViewPage'
 import Signup from '../pages/Signup'
 import Signin from '../pages/Signin'
+import PostCreatePage from '../pages/PostCreatePage'
 
 // 헤더
 import AppHeader from '../components/AppHeader'
@@ -21,17 +22,6 @@ export default new Router({
       component: PostListPage
     },
     {
-      path:'/post/:postId',
-      name:'PostViewPage',
-      components:{
-        header : AppHeader, //헤더에 AppHeader 컴포넌트를 적용
-        default :PostViewPage, // 바디에 PostViewPage 컴포넌트를 적용
-      },
-      props: {
-        default:true
-      }
-    },
-    {
       path:'/signup',
       name:'Signup',
       components:{
@@ -44,6 +34,25 @@ export default new Router({
       name:'Signin',
       component:
          Signin
+      },
+      {
+        path:'/post/create',
+        name: 'PostCreatePage',
+        components:{
+          header : AppHeader,
+          default: PostCreatePage
+        }
+      },
+      {
+        path:'/post/:postId',
+        name:'PostViewPage',
+        components:{
+          header : AppHeader, //헤더에 AppHeader 컴포넌트를 적용
+          default :PostViewPage, // 바디에 PostViewPage 컴포넌트를 적용
+        },
+        props: {
+          default:true
+        }
       }
   ]
 })

@@ -27,7 +27,7 @@ export default {
         }
     },
     methods:{
-        // 정보 입력 완료시 호출되는 함수
+        // 정보 입력 완료시 호출되는 submit() 함수
         submit(){
             const {name, email, password, passwordConfirm}= this
             if(!name || !email || !password || !passwordConfirm){

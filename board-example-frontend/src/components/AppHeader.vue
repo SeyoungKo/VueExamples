@@ -49,7 +49,7 @@ export default {
             this.isActive= false
             alert('로그아웃 되었습니다.')
             // signout()액션으로 스토어에 저장된 토큰, 사용자 정보를 제거하고나서 router를 발생시킨다.
-            this.$router.push({name:'PostListPage'})  // 클릭 이벤트 발생시 페이지를 이동시킨다.
+            this.$router.push({name:'Signin'},()=>{})  // 클릭 이벤트 발생시 페이지를 이동시킨다.
         },
         ...mapActions(['signout']) // signout()액션 헬퍼
     },

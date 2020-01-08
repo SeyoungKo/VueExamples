@@ -8,7 +8,7 @@
                 <input v-model="title" type="text" placeholder="게시물 제목을 입력해주세요."/>
                 <label>내용</label>
                 <!-- rows="" : 스크롤없이 한번에 볼 수 있는 최대 줄 수 -->
-                <textarea v-model="contet"
+                <textarea v-model="content"
                           rows="5" type="text" placeholder="게시물 내용을 입력해주세요."/>
                 <button type="submit">등록하기</button>
             </fieldset>

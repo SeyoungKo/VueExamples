@@ -6,6 +6,8 @@
     <!-- 하위 컴포넌트에 props 속성에 posts를 내려준다. -->
     <!-- post-list 컴포넌트 호출 -->
      <post-list :posts="posts"/>
+     <!-- 글쓰기 버튼 추가 -->
+     <router-link :to="{name: 'PostCreatePage'}">글쓰기</router-link>
   </div>
 </template>
 
@@ -18,7 +20,7 @@ import {mapState} from 'vuex'   // store의 state를 참조하는 헬퍼함수
 
 export default{
     name : 'PostListPage',
-    created(){ 
+    mounted(){
      // api 서버에서 데이터를 받는 actions를 호출한다.
        this.fetchPostList()
     },

@@ -24,7 +24,7 @@ export default {
             api.post('/posts',{title, contents}).then(res=>{
                 alert('게시물 등록이 완료되었습니다.')
                 // 게시물 작성이 성공하면 내가 작성한 게시물 페이지로 이동한다.
-                this.$router.push({name : 'PostViewPage', params : {poastId : res.data.id.toString()}
+                this.$router.push({name : 'PostViewPage', params : {postId : res.data.id.toString()}
                 })
             }).catch(err=>{
                 if(err.response.status ===401){

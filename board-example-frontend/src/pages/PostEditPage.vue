@@ -18,6 +18,10 @@ import api from '@/api'
 
 export default {
     name: 'PostEditPage',
+
+    components:{
+        PostEditForm
+    },
     props:{
         // 라우터의 파라미터 (:postId)를 받아오기 위한 props를 선언
      postId:{

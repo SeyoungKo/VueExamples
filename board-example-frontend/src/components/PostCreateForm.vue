@@ -6,11 +6,12 @@
             <fieldset>
                 <label>제목</label>
                 <input v-model="title" type="text" placeholder="게시물 제목을 입력해주세요."/>
-                <label>내용</label> 
+                <label>내용</label>
                 <!-- rows="" : 스크롤없이 한번에 볼 수 있는 최대 줄 수 -->
-                <textarea v-model="content"
+                <textarea v-model="contents"
                           rows="5" type="text" placeholder="게시물 내용을 입력해주세요."/>
                 <button type="submit">등록하기</button>
+                <router-link :to="{name: 'PostListPage'}">취소</router-link>
             </fieldset>
         </form>
     </div>
@@ -21,14 +22,14 @@ export default {
     data(){
         return{
             title :'',
-            content:''
+            contents:''
         }
     },
     methods:{
         // 정보 입력 완료시 호출되는 onSubmit() 함수
         onSubmit(){
-            const {title, content} = this
-            this.$emit('submit', {title, content}) //상위 컴포넌트에서 @submit = "상위 컴포넌트 메소드명"으로 호출하도록 함
+            const {title, contents} = this
+            this.$emit('submit', {title, contents}) //상위 컴포넌트에서 @submit = "상위 컴포넌트 메소드명"으로 호출하도록 함
         }
     }
 }

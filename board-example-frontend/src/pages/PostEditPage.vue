@@ -1,12 +1,18 @@
 // 게시물 수정 페이지
 <template>
     <div class="post-edit-page">
-        <h1>게시물 수정</h1>
+        <h3>게시물 수정</h3>
+        <!-- 게시물 데이터가 있는 경우에만 PostEditForm을 렌더한다. -->
+        <post-edit-form v-if="post" :post="post" @submit="onSubmit"/>
+        <!-- 게시물 데이터가 없는 경우 로딩 문구를 렌더한다. -->
+        <v-else><p>게시물 불러오는 중...</p></v-else>
     </div>
 </template>
 
 <script>
-import {mapState} from 'vuex'
+import {mapState} from 'vuex' // index.js 라우트 beforeEnter훅에서 postId에 대한 게시물을 스토어에 담은 상태
+import PostEditForm from '../components/PostEditForm'
+import api from '@/api'
 
 export default {
     name: 'PostEditPage',
@@ -17,6 +23,14 @@ export default {
          required:true
         }
     },
-
+    computed:{ // 라우트의 beforeEnter 훅에서 가져온 스토어에 담긴 postId에 대한 게시물을 가져온다.
+        ...mapState(['post'])
+    },
+    methods:{
+        onSubmit(payload){
+            // PostEditForm의 submit 이벤트 헨들러인 onSubmit()
+            console.log(payload)
+        }
+    }
 }
 </script>

@@ -7,12 +7,15 @@
            <router-link :to="{name: 'PostEditPage', params:{postId}}">수정</router-link>
            <button @click="onDelete">삭제</button>
         <router-link :to="{name: 'PostListPage'}">목록</router-link>
+        <!-- commentList 컴포넌트에 comments데이터를 props로 전달한다. -->
+        <comment-list v-if="post" :comments="post.comments"/>
      </div>
 </template>
 
 <script>
 import {mapGetters, mapState, mapActions} from 'vuex' // mapActions 헬퍼 함수 (actions)
 import PostView from '../components/PostView'
+import CommentList from '../components/CommentList'
 import api from '@/api'
 
 export default {
@@ -21,7 +24,7 @@ export default {
         // 컴포넌트 외부에서 게시물 정보를 직접 주입받는다.
         postId:{
             type:String,
-            required:true
+            required:true // props를 통해 라우트의 파라미터값(:postId)에 접근한다.
         }
     },
     methods:{
@@ -66,7 +69,8 @@ export default {
         })
     },
     components:{
-        PostView
+        PostView,
+        CommentList
     }
 }
 </script>

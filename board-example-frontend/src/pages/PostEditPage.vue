@@ -3,9 +3,11 @@
     <div class="post-edit-page">
         <h3>게시물 수정</h3>
         <!-- 게시물 데이터가 있는 경우에만 PostEditForm을 렌더한다. -->
-        <post-edit-form v-if="post" :post="post" @submit="onSubmit"/>
+        <post-edit-form v-if="post"
+                    :post="post"
+                    @submit="onSubmit" />
         <!-- 게시물 데이터가 없는 경우 로딩 문구를 렌더한다. -->
-        <v-else><p>게시물 불러오는 중...</p></v-else>
+        <p v-else>게시물 불러오는 중...</p>
     </div>
 </template>
 

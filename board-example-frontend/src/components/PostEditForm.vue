@@ -4,7 +4,7 @@
     <div class="post-edit-form">
         <form @submit.prevent="onSubmit">
           <fieldset>
-            <lahel>게시물 번호</lahel>
+            <label>게시물 번호</label>
             <!-- 게시물 번호를 보여주는 비활성 입력창 -->
             <input type="text"
                    :value="post.id" disabled/>
@@ -20,7 +20,7 @@
             <router-link :to="{name:'PostViewPage',params:{postId:post.id}}">취소</router-link>
           </fieldset>
         </form>
-    </div>
+      </div>
 </template>
 <script>
 export default {

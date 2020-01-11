@@ -17,6 +17,7 @@ import CommentItem from '../components/CommentItem'
 export default {
     name:'CommentList',
     props:{
+        // 상위 컴포넌트에서 comments 데이터를 props로 전달하였음
         comments:{
             type: Array,
             default(){

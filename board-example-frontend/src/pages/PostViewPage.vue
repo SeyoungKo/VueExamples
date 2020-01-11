@@ -9,6 +9,8 @@
         <router-link :to="{name: 'PostListPage'}">목록</router-link>
         <!-- commentList 컴포넌트에 comments데이터를 props로 전달한다. -->
         <comment-list v-if="post" :comments="post.comments"/>
+        <!-- comment-form에서 보낸 submit의 이벤트 리스너 추가 -->
+        <comment-form @submit="onCommentSubmit"/>
      </div>
 </template>
 
@@ -16,6 +18,7 @@
 import {mapGetters, mapState, mapActions} from 'vuex' // mapActions 헬퍼 함수 (actions)
 import PostView from '../components/PostView'
 import CommentList from '../components/CommentList'
+import CommentForm from '../components/CommentForm'
 import api from '@/api'
 
 export default {
@@ -50,6 +53,9 @@ export default {
                   alert(err.response.data.msg)
               }
           })
+        },
+        onCommentSubmit(comment){
+            // CommentForm에서 this.$emit('submit',comment)로 전달한 인자 받기
         }
     },
      computed:{
@@ -70,7 +76,8 @@ export default {
     },
     components:{
         PostView,
-        CommentList
+        CommentList,
+        CommentForm
     }
 }
 </script>

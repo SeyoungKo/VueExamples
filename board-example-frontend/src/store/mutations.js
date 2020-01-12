@@ -9,6 +9,7 @@ import {SET_MY_INFO} from './mutations-types'
 import {DESTROY_ACCESS_TOKEN} from './mutations-types'
 import {DESTROY_MY_INFO} from './mutations-types'
 import {UPDATE_COMMENT} from './mutations-types'
+import {EDIT_COMMENT} from './mutations-types'
 
 import Cookies from 'js-cookie' // js-cookie 라이브러리를 불러온다.
 
@@ -53,5 +54,13 @@ export default{
     // 댓글 등록 (변이로 상태를 갱신한다.)
     [UPDATE_COMMENT] (state, payload){
         state.post.comments.push(payload)
-    }
+    },
+    // 댓글 수정
+    [EDIT_COMMENT] (state, payload) {
+        const { id: commentId, contents, updatedAt } = payload
+         // array 자료형의 find 메소드를 사용해 주입받은 아이디와 같은 아이디를 가진 댓글 객체를 찾는다.
+        const targetComment = state.post.comments.find(comment => comment.id === commentId)
+        targetComment.contents = contents
+        targetComment.updatedAt = updatedAt
+      }
 }

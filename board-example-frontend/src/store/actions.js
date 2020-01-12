@@ -9,6 +9,8 @@ import {SET_MY_INFO} from './mutations-types'
 import {DESTROY_ACCESS_TOKEN} from './mutations-types'
 import {DESTROY_MY_INFO} from './mutations-types'
 import {UPDATE_COMMENT} from './mutations-types'
+import {EDIT_COMMENT} from './mutations-types'
+
 
 // **비동기에 대한 처리를 정의한다.**
 export default{
@@ -62,5 +64,13 @@ export default{
         return api.post(`/posts/${postId}/comments`,{contents: comment}).then(res =>{
             commit(UPDATE_COMMENT, res.data)
           })
+      },
+      // EDIT_COMMENT 변이를 사용해 스토어의 댓글 상태를 갱신하고 API 서버로 댓글 갱신 요청을 한다.
+      editComment({commit, state}, {commentId, comment}){
+          const postId = state.post.id
+          return api.put(`/posts/${postId}/comments/${commentId}`,{
+              contents:comment}).then(res=> {
+                  commit(EDIT_COMMENT, res.data)
+           })
       }
 }

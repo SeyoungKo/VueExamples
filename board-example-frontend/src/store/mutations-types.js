@@ -15,3 +15,6 @@ export const DESTROY_MY_INFO = 'DESTROY_MY_INFO'
 
 // 댓글 등록
 export const UPDATE_COMMENT = 'UPDATE_COMMENT'
+
+// 댓글 수정
+export const EDIT_COMMENT = 'EDIT_COMMENT'

@@ -8,7 +8,7 @@ import {SET_ACCESS_TOKEN} from './mutations-types'
 import {SET_MY_INFO} from './mutations-types'
 import {DESTROY_ACCESS_TOKEN} from './mutations-types'
 import {DESTROY_MY_INFO} from './mutations-types'
-
+import {UPDATE_COMMENT} from './mutations-types'
 
 // **비동기에 대한 처리를 정의한다.**
 export default{
@@ -54,5 +54,13 @@ export default{
     signout ({commit}){
         commit(DESTROY_MY_INFO)
         commit(DESTROY_ACCESS_TOKEN)
-    }
+    },
+     // 댓글 등록을 할시 api서버에 업데이트를 요청한다.
+    createComment({commit, state}, comment) {// 액션함수를 호출하는 컴포넌트에서 comment를 인자로 보낸다.
+        // 현재 게시물 ID를 상태에서 접근해 가져온다.
+        const postId = state.post.id
+        return api.post(`/posts/${postId}/comments`,{contents: comment}).then(res =>{
+            commit(UPDATE_COMMENT, res.data)
+          })
+      }
 }

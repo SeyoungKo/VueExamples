@@ -1,4 +1,5 @@
 // mutation-types 상수 이름을 불러와 스토어 값 변경
+// state (상태)를 업데이트하기 위해 사용된다.
 
 // mutation(상태, 페이로드)
 import {FETCH_POST_LIST} from './mutations-types'
@@ -7,6 +8,7 @@ import {SET_ACCESS_TOKEN} from './mutations-types'
 import {SET_MY_INFO} from './mutations-types'
 import {DESTROY_ACCESS_TOKEN} from './mutations-types'
 import {DESTROY_MY_INFO} from './mutations-types'
+import {UPDATE_COMMENT} from './mutations-types'
 
 import Cookies from 'js-cookie' // js-cookie 라이브러리를 불러온다.
 
@@ -47,5 +49,9 @@ export default{
     // 스토어에 저장된 토큰에 대한 사용자 정보 null로 변경
     [DESTROY_MY_INFO](state){
         state.me = null
+    },
+    // 댓글 등록 (변이로 상태를 갱신한다.)
+    [UPDATE_COMMENT] (state, payload){
+        state.post.comments.push(payload)
     }
 }

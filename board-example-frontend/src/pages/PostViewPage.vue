@@ -15,7 +15,9 @@
 </template>
 
 <script>
-import {mapGetters, mapState, mapActions} from 'vuex' // mapActions 헬퍼 함수 (actions)
+import {mapGetters} from 'vuex'
+import {mapState} from 'vuex'
+import {mapActions} from 'vuex' // mapActions 헬퍼 함수 (actions)
 import PostView from '../components/PostView'
 import CommentList from '../components/CommentList'
 import CommentForm from '../components/CommentForm'
@@ -31,8 +33,6 @@ export default {
         }
     },
     methods:{
-        ...mapActions(['fetchPost']),
-
          // 삭제기능을 담당하는 onDelete()를 선언한다.
         onDelete(){
           // mapState에서 가져온 post의 id값을 변수에 할당한다.
@@ -55,11 +55,26 @@ export default {
           })
         },
         onCommentSubmit(comment){
-            // CommentForm에서 this.$emit('submit',comment)로 전달한 인자 받기
-        }
+            // CommentForm에서 this.$emit('submit',comment)로 전달한 인자를 받았다.
+            if(!this.isAuthorized){
+                alert('로그인이 필요합니다.')
+                this.$router.push({name: 'Signin'})
+            }else {
+                // 인증된 사용자인 경우 createComment 액션을 통해 API 서버를 호출한다.
+                this.createComment(comment).then(()=>{
+                    alert('댓글이 성공적으로 작성되었습니다.')
+                }).catch(err=>{
+                    alert(err.response.data.msg) // 서버 에러메세지
+                })
+            }
+        },
+        ...mapActions([
+            'fetchPost',
+            'createComment'
+        ])
     },
      computed:{
-        ...mapGetters([
+        ...mapGetters([ // 인증 여부를 확인하기 위해 게터 함수를 컴포넌트에 매핑한다.
             'isAuthorized'
         ]),
         ...mapState([

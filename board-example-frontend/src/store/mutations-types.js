@@ -12,3 +12,6 @@ export const SET_MY_INFO = 'SET_MY_INFO'
 export const DESTROY_ACCESS_TOKEN = 'DESTROY_ACCESS_TOKEN'
 
 export const DESTROY_MY_INFO = 'DESTROY_MY_INFO'
+
+// 댓글 등록
+export const UPDATE_COMMENT = 'UPDATE_COMMENT'

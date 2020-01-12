@@ -1,7 +1,5 @@
 // 게시물 수정하기 컴포넌트
-
 <template>
-    <div class="post-edit-form">
         <form @submit.prevent="onSubmit">
           <fieldset>
             <label>게시물 번호</label>
@@ -20,7 +18,6 @@
             <router-link :to="{name:'PostViewPage',params:{postId:post.id}}">취소</router-link>
           </fieldset>
         </form>
-      </div>
 </template>
 <script>
 export default {

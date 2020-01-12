@@ -1,4 +1,4 @@
-// 댓글 내용 컴포넌트
+// 작성된 댓글 내용 컴포넌트
 <template>
     <div class="comment-item">
         <!-- CommentList에 있던 속성들을 가져온다. -->
@@ -33,6 +33,7 @@ export default {
         ...mapState(['me']),
         // 현재 로그인 여부를 아는 게터를 가져온다.
         ...mapGetters(['isAuthorized']),
+        // 현재 로그인한 id (me.id)와 게시물 댓글 작성자 (comment.user.id)가 일치하면 댓글 수정, 삭제 버튼이 보여지게 한다.
         isMyComment(){
             return this.isAuthorized && this.comment.user.id === this.me.id
         }

@@ -3,7 +3,7 @@
   <ul class="comment-list">
     <li v-for="comment in comments" :key="comment.id">
       <!-- CommentItem 컴포넌트의 onEdit 메소드를 등록한다. -->
-      <comment-item :comment="comment" @edit="onEdit"/>
+      <comment-item :comment="comment" @delete="onDelete" @edit="onEdit"/>
     </li>
     <li v-if="comments.length <= 0">
       입력된 댓글이 없습니다.
@@ -40,8 +40,22 @@ export default {
           }
         })
     },
+      onDelete(commentId){  // CommentItem 컴포넌트 onDelete('delete', id)로 보낸 인자값
+        this.deleteComment(commentId).then(res => {
+          //삭제 성공시 성공 메세지를 노출한다.
+          alert('댓글이 삭제되었습니다.')
+        }).catch(err => {
+          //삭제 실패시 상황에 따라 처리한다.
+          if(err.response.status === 401){
+            alert('로그인이 필요합니다.')
+            this.$router.push({name : 'Signin'})
+          }else {
+            alert(err.response.data.msg) // 서버 에러 메세지
+          }
+        })
+      },
       // editComment 액션을 CommentList 컴포넌트에 등록한다.
-      ...mapActions(['editComment'])
+      ...mapActions(['editComment', 'deleteComment'])
     },
     components:{
         CommentItem

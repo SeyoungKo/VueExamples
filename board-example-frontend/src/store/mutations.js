@@ -10,6 +10,7 @@ import {DESTROY_ACCESS_TOKEN} from './mutations-types'
 import {DESTROY_MY_INFO} from './mutations-types'
 import {UPDATE_COMMENT} from './mutations-types'
 import {EDIT_COMMENT} from './mutations-types'
+import {DELETE_COMMENT} from './mutations-types'
 
 import Cookies from 'js-cookie' // js-cookie 라이브러리를 불러온다.
 
@@ -62,5 +63,11 @@ export default{
         const targetComment = state.post.comments.find(comment => comment.id === commentId)
         targetComment.contents = contents
         targetComment.updatedAt = updatedAt
-      }
+      },
+    // 댓글 삭제
+    [DELETE_COMMENT](state, commentId){
+        // 전달받은 commentId와 스토어에 저장된 comment.id를 비교한다.
+        const targetIndex = state.post.comments.findIndex(comment => comment.id === commentId)
+        state.post.comments.splice(targetIndex,1)
+    }
 }

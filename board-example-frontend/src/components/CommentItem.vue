@@ -14,7 +14,8 @@
         <!-- 수정버튼 클릭 이벤트 리스너로 toggleEditMode 메소드를 연결한다. -->
         <ul v-if="isMyComment">
            <li><button type="button" @click="toggleEditMode">{{ editButtonText }}</button>
-           <button type="button" >삭제</button></li>
+           <!-- 삭제버튼 클릭 이벤트로 onDelete 함수를 연결한다. -->
+           <button type="button" @click="onDelete" >삭제</button></li>
         </ul>
     </div>
 </template>
@@ -82,6 +83,11 @@ export default {
             }else{
                 alert('댓글은 1자 이상 255자 이하여야 합니다.')
             }
+        },
+        onDelete(){
+            const {id} = this.comment
+            // 삭제클릭시 comment id값을 넘긴다.
+            this.$emit('delete', id)
         }
     }
 }

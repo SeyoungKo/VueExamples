@@ -10,6 +10,7 @@ import {DESTROY_ACCESS_TOKEN} from './mutations-types'
 import {DESTROY_MY_INFO} from './mutations-types'
 import {UPDATE_COMMENT} from './mutations-types'
 import {EDIT_COMMENT} from './mutations-types'
+import {DELETE_COMMENT} from './mutations-types'
 
 
 // **비동기에 대한 처리를 정의한다.**
@@ -72,5 +73,12 @@ export default{
               contents:comment}).then(res=> {
                   commit(EDIT_COMMENT, res.data)
            })
+      },
+      // 댓글 삭제 액션
+      deleteComment({commit,state},commentId){
+          const postId = state.post.id
+          return api.delete(`/posts/${postId}/comments/${commentId}`).then(res =>{
+              commit(DELETE_COMMENT, commentId)
+          })
       }
 }

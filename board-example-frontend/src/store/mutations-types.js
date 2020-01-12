@@ -18,3 +18,6 @@ export const UPDATE_COMMENT = 'UPDATE_COMMENT'
 
 // 댓글 수정
 export const EDIT_COMMENT = 'EDIT_COMMENT'
+
+// 댓글 삭제
+export const DELETE_COMMENT = 'DELETE_COMMENT'

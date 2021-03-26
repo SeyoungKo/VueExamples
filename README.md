@@ -2,5 +2,5 @@
 Vue.js basic applications  🙌🏻
 
 ### Vue.js Example
-- board Example App
+- Board Example App
 - Memo Example App
